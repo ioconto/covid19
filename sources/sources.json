@@ -1,0 +1,93 @@
+[
+  {
+    "sourceId": 1,
+    "entity": "municipalities",
+    "country": "IT",
+    "type": "CSV",
+    "data": "raw",
+    "sourceUri": "https://www.istat.it/storage/codici-unita-amministrative/Elenco-comuni-italiani.csv",
+    "sourceName": "Istat",
+    "sourceSite": "https://www.istat.it/it/archivio/6789",
+    "fileName": "it-municipalities.csv",
+    "lastUpdate": "2020-04-03T05:00:00Z"
+  },
+  {
+    "sourceId": 2,
+    "name": "Raw Data on population",
+    "entity": "population",
+    "country": "IT",
+    "type": "CSV",
+    "data": "raw",
+    "sourceUri": "http://demo.istat.it/pop2019/dati/comuni.zip",
+    "sourceName": "Istat",
+    "sourceSite": "http://demo.istat.it/pop2019/index3.html",
+    "fileName": "it-population-raw-2019.csv",
+    "lastUpdate": "2019-01-01T05:00:00Z"
+  },
+  {
+    "sourceId": 3,
+    "name": "Popupation by municipality",
+    "entity": "population",
+    "country": "IT",
+    "type": "CSV",
+    "data": "raw",
+    "sourceName": "Unknown",
+    "fileName": "it-population.csv",
+    "lastUpdate": "2020-04-03T05:00:00Z"
+  },
+  {
+    "sourceId": 4,
+    "entity": "deaths",
+    "name": "Deaths for 1084 municipalities - period 1-21 March 2020",
+    "country": "IT",
+    "type": "CSV",
+    "data": "computed",
+    "sourceName": "Caterina Lurani e Luca Foresti on Istat Data",
+    "sourceSite": "https://docs.google.com/spreadsheets/d/1DMwi559UjbyosL5rQ7RT0ehlfRlbFZugHhsqfUI-30U",
+    "fileName": "it-deaths-200321-foresti.csv",
+    "lastUpdate": "2020-04-03T05:00:00Z",
+    "notes": "Added population"
+  },
+  {
+    "sourceId": 5,
+    "entity": "deaths",
+    "name": "Official Data on deaths for 1084 municipalities - period 1-21 March 2020",
+    "country": "IT",
+    "type": "CSV",
+    "data": "raw",
+    "sourceUri": "https://www.istat.it/it/files//2020/03/dati-comunali-giornalieri-1.zip",
+    "sourceName": "Istat",
+    "sourceSite": "https://www.istat.it/it/archivio/240401",
+    "sourceLegend": "docs/it-deaths-200321-daily-legend.txt",
+    "fileName": "it-deaths-200321.csv",
+    "lastUpdate": "2020-04-03T05:00:00Z"
+  },
+  {
+    "sourceId": 6,
+    "name": "deaths",
+    "description": "Official Data on daily deaths - years 2015-2019 period Jan-Apr",
+    "country": "IT",
+    "type": "CSV",
+    "data": "computed",
+    "sourceUri": "https://www.istat.it/it/files//2020/03/mortalit%C3%A0-per-giorno-periodo-01_01-30_04-anni-2015-2019-totali.zip",
+    "sourceName": "Istat",
+    "sourceSite": "https://www.istat.it/it/archivio/240401",
+    "sourceLegend": "docs/it-deaths-2015-2019-legend.txt",
+    "fileName": "it-deaths-2015-2019.csv",
+    "lastUpdate": "2020-04-03T05:00:00Z"
+  },
+  {
+    "sourceId": 7,
+    "name": "deaths",
+    "description": "Eco di Bergamo Data on march deaths 2020 vs 2019",
+    "country": "IT",
+    "type": "CSV",
+    "data": "raw",
+    "sourceUri": "https://query.data.world/s/hrcj5nulxggaiysr3nkrmttmlscubf",
+    "sourceName": "Eco di Bergamo - Isaia Invernizzi",
+    "sourceSite": "https://data.world/easyinve/mortalit-in-provincia-di-bergamo",
+    "fileName": "it-deaths-bg-2003.csv",
+    "lastUpdate": "2020-04-03T05:00:00Z"
+  }
+]
+

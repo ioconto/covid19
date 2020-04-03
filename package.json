@@ -1,0 +1,19 @@
+{
+  "name": "covid19",
+  "version": "1.0.0",
+  "description": "Open Data on Covid19",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ioconto/covid19.git"
+  },
+  "author": "Covid19 Open Data Team",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ioconto/covid19/issues"
+  },
+  "homepage": "https://github.com/ioconto/covid19#readme"
+}
