@@ -13,7 +13,8 @@ I dati elaborati sono disponibili in https://github.com/ioconto/covid19/tree/mas
 |----------|-------------|
 | [it-bergamo-deaths-03.csv](https://github.com/ioconto/covid19/blob/master/opendata/it-bergamo-deaths-03.csv?raw=true)  | Decessi rilevati in provincia di Bergamo e confronto con ufficiali Covid19        |
 | [it-bergamo-deaths-03.xlsx](https://github.com/ioconto/covid19/blob/master/opendata/it-bergamo-deaths-03.xlsx?raw=true)  | Elaborazione decessi rilevati in provincia di Bergamo e confronto con ufficiali Covid19        |
-
+| [it-brescia-deaths-03.csv](https://github.com/ioconto/covid19/blob/master/opendata/it-brescia-deaths-03.csv?raw=true)  | Decessi rilevati in provincia di Brescia e confronto con ufficiali Covid19        |
+| [it-brescia-deaths-03.xlsx](https://github.com/ioconto/covid19/blob/master/opendata/it-brescia-deaths-03.xlsx?raw=true)  | Elaborazione decessi rilevati in provincia di Brescia e confronto con ufficiali Covid19        |
 
 ## Sorgenti
 Le sorgenti dei dati che utilizziamo per le nostre elaborazioni sono disponibili in https://github.com/ioconto/covid19/tree/master/sources

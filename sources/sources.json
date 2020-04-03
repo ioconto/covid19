@@ -88,6 +88,17 @@
     "sourceSite": "https://data.world/easyinve/mortalit-in-provincia-di-bergamo",
     "fileName": "it-deaths-bg-2003.csv",
     "lastUpdate": "2020-04-03T05:00:00Z"
+  },
+  {
+    "sourceId": 8,
+    "name": "deaths",
+    "description": "Brescia Today Data on march deaths 2020 vs 2019",
+    "country": "IT",
+    "type": "CSV",
+    "data": "raw",
+    "sourceName": "Brescia Today",
+    "sourceSite": "http://www.bresciatoday.it/attualita/coronavirus/dati-marzo-2020.html",
+    "lastUpdate": "2020-04-03T05:00:00Z"
   }
 ]
 
