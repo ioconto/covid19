@@ -7,9 +7,14 @@ IoConto vuole fornire, a tutti gli enti e anche a singoli individui, un sistema 
 Uniti ce la faremo.
 
 ## Dati Disponibili
-I dati elaborati sono disponibili in https://github.com/ioconto/covid19/sources/opendata
+I dati elaborati sono disponibili in https://github.com/ioconto/covid19/opendata
+
+| Filename | Descrizione |
+|----------|-------------|
+| [it-bergamo-deaths-03.xlsx](https://github.com/ioconto/covid19/opendata/it-bergamo-deaths-03.xlsx)  | Elaborazione decessi rilevati in provincia di Bergamo e confronto con ufficiali Covid19        |
+
 
 ## Sorgenti
-Le sorgenti dei dati che utilizziamo per le nostre elaborazioni sono disponibili in https://github.com/ioconto/covid19/sources
+Le sorgenti dei dati che utilizziamo per le nostre elaborazioni sono disponibili in https://github.com/ioconto/covid19/tree/master/sources
 
-Il loro elenco è specificato qui: https://github.com/ioconto/covid19/sources/sources.json
+Il loro elenco è specificato qui: https://github.com/ioconto/covid19/tree/master/sources/sources.json
