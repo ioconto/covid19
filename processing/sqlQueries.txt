@@ -1,0 +1,32 @@
+Population data - 7904 rows
+SELECT m.istatId, nameItSt, regionName, nameSubReg, population 
+FROM `it-municipalities` m
+
+Geocodes - 7856
+SELECT `m`.istatId, nameItSt, regionName, nameSubReg, population, `g`.lat, `g`.lng 
+FROM `it-municipalities` m
+INNER JOIN `it-municipalities-geo` g on m.`istatId` = g.`istatId`
+
+Istat deaths
+
+
+CREATE TABLE `it-municipalities-deaths-2` (
+  `istatId` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `prov` int(11) NOT NULL,
+  `provName` varchar(255) NOT NULL,
+  `region` int(11) NOT NULL,
+  `regionName` varchar(255) NOT NULL,
+  `month` int(11) NOT NULL,
+  `day` int(11) NOT NULL,
+  `deaths2015` int(11) NOT NULL,
+  `deaths2016` int(11) NOT NULL,
+  `deaths2017` int(11) NOT NULL,
+  `deaths2018` int(11) NOT NULL,
+  `deaths2019` int(11) NOT NULL
+)
+
+
+insert into `it-municipalities-deaths-raw`
+SELECT * FROM `it-municipalities-deaths-2`
+

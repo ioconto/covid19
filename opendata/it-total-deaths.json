@@ -1,0 +1,34 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [ 9.18512960, 39.59920717]
+    },
+    "properties": {
+      "name": "Siurgus Donigala",
+      "population": 1234,
+      "deaths": 23,
+      "marker-color": "#ff0000",
+      "marker-size": "medium",
+      "marker-symbol": "triangle"
+    }
+  },
+  {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [ 9.18134789, 39.34813791]
+    },
+    "properties": {
+      "name": "Soleminis",
+      "population": 678,
+      "deaths": 2,
+      "marker-color": "#00ffff",
+      "marker-size": "medium"
+    }
+  }
+]
+}

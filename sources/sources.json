@@ -2,6 +2,7 @@
   {
     "sourceId": 1,
     "entity": "municipalities",
+    "name": "Italian Municipalities",
     "country": "IT",
     "type": "CSV",
     "data": "raw",
@@ -13,7 +14,7 @@
   },
   {
     "sourceId": 2,
-    "name": "Raw Data on population",
+    "name": "Raw Data on Italian population",
     "entity": "population",
     "country": "IT",
     "type": "CSV",
@@ -64,8 +65,8 @@
   },
   {
     "sourceId": 6,
-    "name": "deaths",
-    "description": "Official Data on daily deaths - years 2015-2019 period Jan-Apr",
+    "entity": "deaths",
+    "name": "Official Data on daily deaths - years 2015-2019 period Jan-Apr",
     "country": "IT",
     "type": "CSV",
     "data": "computed",
@@ -78,8 +79,8 @@
   },
   {
     "sourceId": 7,
-    "name": "deaths",
-    "description": "Eco di Bergamo Data on march deaths 2020 vs 2019",
+    "entity": "deaths",
+    "name": "Eco di Bergamo Data on march deaths 2020 vs 2019",
     "country": "IT",
     "type": "CSV",
     "data": "raw",
@@ -91,14 +92,27 @@
   },
   {
     "sourceId": 8,
-    "name": "deaths",
-    "description": "Brescia Today Data on march deaths 2020 vs 2019",
+    "entity": "deaths",
+    "name": "Brescia Today Data on march deaths 2020 vs 2019",
     "country": "IT",
     "type": "CSV",
     "data": "raw",
     "sourceName": "Brescia Today",
     "sourceSite": "http://www.bresciatoday.it/attualita/coronavirus/dati-marzo-2020.html",
     "lastUpdate": "2020-04-03T05:00:00Z"
+  },
+  {
+    "sourceId": 9,
+    "entity": "municipalities",
+    "name": "Geocodes of Italian municipalities",
+    "country": "IT",
+    "type": "xlsx",
+    "data": "raw",
+    "fileName": "it-municipalities-geo.xlsx",
+    "sourceName": "Comuni-Italiani-2018-Sql-Json-excel",
+    "sourceUri": "https://github.com/MatteoHenryChinaski/Comuni-Italiani-2018-Sql-Json-excel/blob/master/italy_geo.xlsx?raw=true",
+    "sourceSite": "https://github.com/MatteoHenryChinaski/Comuni-Italiani-2018-Sql-Json-excel/blob/master/italy_cities.xlsx",
+    "lastUpdate": "2020-04-04T05:00:00Z"
   }
 ]
 

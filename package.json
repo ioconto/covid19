@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/ioconto/covid19/issues"
   },
-  "homepage": "https://github.com/ioconto/covid19#readme"
+  "homepage": "https://github.com/ioconto/covid19#readme",
+  "dependencies": {
+    "csvtojson": "^2.0.10"
+  }
 }
