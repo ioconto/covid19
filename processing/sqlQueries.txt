@@ -7,7 +7,41 @@ SELECT `m`.istatId, nameItSt, regionName, nameSubReg, population, `g`.lat, `g`.l
 FROM `it-municipalities` m
 INNER JOIN `it-municipalities-geo` g on m.`istatId` = g.`istatId`
 
+Check that deaths for municipalities have been imported correctly
+SELECT count(istatId),name 
+FROM `it-municipalities-deaths-raw` 
+GROUP BY istatId, name
+HAVING count(istatId) <> 121
+
 Istat deaths
+SELECT 
+	count(istatId),
+    name,
+    month,
+    sum(`deaths2015`) AS d15,
+    sum(`deaths2016`) AS d16,
+    sum(`deaths2017`) AS d17,
+    sum(`deaths2018`) AS d18,
+    sum(`deaths2019`) AS d19
+FROM `it-municipalities-deaths-raw` 
+GROUP BY istatId, name, month
+
+
+CREATE TABLE it_municipalities_deaths_by_month AS 
+SELECT 
+	  istatId,
+    name,
+    month,
+    sum(`deaths2015`) AS d15,
+    sum(`deaths2016`) AS d16,
+    sum(`deaths2017`) AS d17,
+    sum(`deaths2018`) AS d18,
+    sum(`deaths2019`) AS d19
+FROM `it-municipalities-deaths-raw` 
+GROUP BY istatId, name, month
+
+
+
 
 
 CREATE TABLE `it-municipalities-deaths-2` (
@@ -27,6 +61,86 @@ CREATE TABLE `it-municipalities-deaths-2` (
 )
 
 
-insert into `it-municipalities-deaths-raw`
+INSERT INTO `it-municipalities-deaths-raw`
 SELECT * FROM `it-municipalities-deaths-2`
 
+
+
+CREATE TABLE `it-municipalities-deaths-march20` (
+  `regId` int(11) NOT NULL,
+  `provId` int(11) NOT NULL,
+  `region` varchar(255) NOT NULL,
+  `province` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `istatId` int(11) NOT NULL,
+  `ageClass` int(11) NOT NULL,
+  `day` varchar(4) NOT NULL,
+  `m15` int(11) NOT NULL,
+  `m16` int(11) NOT NULL,
+  `m17` int(11) NOT NULL,
+  `m18` int(11) NOT NULL,
+  `m19` int(11) NOT NULL,
+  `m20` int(11) NOT NULL,
+  `f15` int(11) NOT NULL,
+  `f16` int(11) NOT NULL,
+  `f17` int(11) NOT NULL,
+  `f18` int(11) NOT NULL,
+  `f19` int(11) NOT NULL,
+  `f20` int(11) NOT NULL,
+  `t15` int(11) NOT NULL,
+  `t16` int(11) NOT NULL,
+  `t17` int(11) NOT NULL,
+  `t18` int(11) NOT NULL,
+  `t19` int(11) NOT NULL,
+  `t20` int(11) NOT NULL
+)
+
+SELECT
+	istatId,
+    name,
+    SUBSTR(dayS,1,2),
+    SUBSTR(dayS,3,2)
+FROM `it-municipalities-deaths-march20-raw`
+
+UPDATE `it-municipalities-deaths-march20-raw`
+SET
+    month = SUBSTR(dayS,1,2),
+    day = SUBSTR(dayS,3,2)
+
+Municipalities List with 2020 march data
+SELECT `istatId`, `name`
+FROM `it-municipalities-deaths-march20-raw`
+WHERE t20 <> 9999
+GROUP BY `istatId`, `name`
+
+
+SELECT `istatId`, `name` 
+FROM `it-municipalities-deaths-march20-raw`
+WHERE t20 <> 9999 AND month = 3
+GROUP BY `istatId`, `name`
+
+Select all deaths for march
+SELECT 
+	`istatId`,
+    `name`,
+    sum(t20) as d20
+FROM `it-municipalities-deaths-march20-raw`
+WHERE
+	t20 <> 9999 AND
+    month = 3
+GROUP BY `istatId`, `name`
+
+
+SELECT * 
+FROM `it_municipalities_deaths_by_month` m
+LEFT OUTER JOIN `it_municipalities_deaths_march20` r ON m.`istatId` = r.`istatId`
+
+
+Update main deaths table with march 1-21 deaths for 1084 municipalities
+UPDATE `it_municipalities_deaths_by_month` m
+INNER JOIN `it_municipalities_deaths_march20` r ON m.`istatId` = r.`istatId`
+SET m.d20 = r.d20 AND m.march = 1
+WHERE m.month = 3
+
+Extract data for csv/json
+SELECT * FROM `it_municipalities_deaths_by_month` WHERE month = 3 and march = 1
