@@ -102,24 +102,19 @@ SELECT
     SUBSTR(dayS,3,2)
 FROM `it-municipalities-deaths-march20-raw`
 
+Estrae il giorno mese dalla colonna dayS
 UPDATE `it-municipalities-deaths-march20-raw`
 SET
     month = SUBSTR(dayS,1,2),
     day = SUBSTR(dayS,3,2)
 
 Municipalities List with 2020 march data
-SELECT `istatId`, `name`
-FROM `it-municipalities-deaths-march20-raw`
-WHERE t20 <> 9999
-GROUP BY `istatId`, `name`
-
-
 SELECT `istatId`, `name` 
 FROM `it-municipalities-deaths-march20-raw`
 WHERE t20 <> 9999 AND month = 3
 GROUP BY `istatId`, `name`
 
-Select all deaths for march
+Select all deaths for march 20
 SELECT 
 	`istatId`,
     `name`,
@@ -144,3 +139,116 @@ WHERE m.month = 3
 
 Extract data for csv/json
 SELECT * FROM `it_municipalities_deaths_by_month` WHERE month = 3 and march = 1
+
+SELECT d.*, m.population, m.nameItSt, g.lng, g.lat
+FROM 
+	`it_municipalities_deaths_by_month` d
+    INNER JOIN `it-municipalities` m ON d.istatId = m.istatId 
+    INNER JOIN `it-municipalities-geo` g ON d.istatId = g.istatId
+WHERE
+	d.month = 3 AND 
+    d.`istatMarch` = 1
+
+Missing Geodata
+SELECT d.*, m.population, m.nameItSt, g.lng, g.lat
+FROM 
+	`it_municipalities_deaths_by_month` d
+    INNER JOIN `it-municipalities` m ON d.istatId = m.istatId 
+    LEFT OUTER JOIN `it-municipalities-geo` g ON d.istatId = g.istatId
+WHERE
+	d.month = 3 AND 
+    d.istatMarch = 1 AND
+    g.lng IS NULL
+
+Upload Brescia e Bergamo
+SELECT d.*, b.*
+FROM 
+	`it_municipalities_deaths_by_month` d
+    INNER JOIN `it-deaths-bergamo` b ON d.istatId = b.istatId 
+WHERE
+	d.month = 3
+
+UPDATE `it_municipalities_deaths_by_month` m
+INNER JOIN `it-deaths-bergamo` r ON m.`istatId` = r.`istatId`
+SET 
+    m.mar19 = r.mar19,
+    m.mar20 = r.mar20,
+    m.officialCovid = r.officialCovid,
+    m.ecoBG = 1
+WHERE m.month = 3
+
+UPDATE `it_municipalities_deaths_by_month` m
+INNER JOIN `it-deaths-brescia` r ON m.`istatId` = r.`istatId`
+SET 
+    m.mar19 = r.mar19,
+    m.mar20 = r.mar20,
+    m.officialCovid = r.officialCovid,
+    m.bsToday = 1
+WHERE m.month = 3
+
+Produzione tabella per json finale
+
+SELECT * 
+FROM `it_municipalities_deaths_by_month`
+WHERE
+	`istatMarch` = 1 OR
+    `ecoBG` = 1 OR
+    `bsToday` = 1
+
+Selects only march deaths between 1 and 21
+SELECT 
+	istatId,
+    name,
+    month,
+    sum(`deaths2015`) AS d15,
+    sum(`deaths2016`) AS d16,
+    sum(`deaths2017`) AS d17,
+    sum(`deaths2018`) AS d18,
+    sum(`deaths2019`) AS d19
+FROM `it-municipalities-deaths-raw` 
+WHERE
+	month = 3 AND
+    day BETWEEN 1 AND 21
+GROUP BY istatId, name, month
+
+CREATE TABLE `it_municipalities_deaths_by_m20_1-21` AS
+SELECT 
+	istatId,
+    name,
+    month,
+    sum(`deaths2015`) AS d15,
+    sum(`deaths2016`) AS d16,
+    sum(`deaths2017`) AS d17,
+    sum(`deaths2018`) AS d18,
+    sum(`deaths2019`) AS d19
+FROM `it-municipalities-deaths-raw` 
+WHERE
+	month = 3 AND
+    day BETWEEN 1 AND 21
+GROUP BY istatId, name, month
+
+Update final table with march deaths only referred to 1-21
+UPDATE `it_municipalities_deaths_march_FINAL` m
+INNER JOIN `it_municipalities_deaths_by_m20_1-21` r ON m.`istatId` = r.`istatId`
+SET
+	m.d15 = r.d15,
+	m.d16 = r.d16,
+	m.d17 = r.d17,
+	m.d18 = r.d18,
+	m.d19 = r.d19
+
+SELECT
+	d.*,
+    m.population,
+    m.nameItSt,
+    g.lng,
+    g.lat
+FROM 
+	`it_municipalities_deaths_march_FINAL` d
+    INNER JOIN `it-municipalities` m ON d.istatId = m.istatId 
+    INNER JOIN `it-municipalities-geo` g ON d.istatId = g.istatId
+WHERE
+	d.month = 3 AND 
+    (`istatMarch` = 1 OR
+    `ecoBG` = 1 OR
+    `bsToday` = 1)
