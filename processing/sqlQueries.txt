@@ -125,7 +125,6 @@ WHERE
     month = 3
 GROUP BY `istatId`, `name`
 
-
 SELECT * 
 FROM `it_municipalities_deaths_by_month` m
 LEFT OUTER JOIN `it_municipalities_deaths_march20` r ON m.`istatId` = r.`istatId`
@@ -252,3 +251,218 @@ WHERE
     (`istatMarch` = 1 OR
     `ecoBG` = 1 OR
     `bsToday` = 1)
+
+
+Update province and region
+UPDATE `it_municipalities_deaths_march_FINAL` m
+INNER JOIN `it-municipalities` r ON m.istatId = r.istatId
+SET
+	m.province = r.nameSubReg,
+    m.region = r.regionName    
+
+
+Was there any problem before march?
+
+this retrieves data just for the 1084 municipalities
+SELECT 
+	`istatId`,
+    `name`,
+    month,
+    sum(t20) as d20
+FROM `it-municipalities-deaths-march20-raw`
+WHERE
+	t20 <> 9999 
+GROUP BY `istatId`, `name`, month
+
+
+*******  QUERY TO GET DAILY DATA TO PRODUCE GRAPHS  ****
+SELECT 
+	`istatId`,
+    `name`,
+    month,
+    day,
+    (sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5 as avg,
+    sum(t20) as d20
+FROM `it-municipalities-deaths-march20-raw`
+WHERE
+	istatId =  16144 AND
+    t20 <> 9999
+GROUP BY `istatId`, `name`, month, day
+
+
+
+SELECT 
+	`istatId`,
+    `name`,
+    month,
+    day
+    (sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5 as avg,
+    sum(t20) as d20
+FROM `it-municipalities-deaths-march20-raw`
+WHERE
+	istatId =  16144 AND
+    t20 <> 9999 AND
+	month = 1 AND
+    day < 16
+    
+GROUP BY `istatId`, `name`, month, day
+
+
+Calculate total diff by date
+SELECT 
+	`istatId`,
+    `name`,
+    (sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5 as avg,
+    sum(t20) as d20,
+    sum(t20) - ((sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5) as delta
+FROM `it-municipalities-deaths-march20-raw`
+WHERE
+	istatId =  16144 AND
+    t20 <> 9999 AND
+	month = 1 AND
+    day < 16
+GROUP BY `istatId`, `name`
+
+
+SELECT 
+	`istatId`,
+    `name`,
+    (sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5 as avg,
+    sum(t20) as d20,
+    sum(t20) - ((sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5) as delta,
+    (sum(t20) - ((sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5)) / ((sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5) as perc
+FROM `it-municipalities-deaths-march20-raw`
+WHERE
+	istatId =  16144 AND
+    t20 <> 9999 AND
+	month = 1 AND
+    day < 16
+GROUP BY `istatId`, `name`
+HAVING delta > 5
+
+Extract all municipalities with increase higher than 50%
+
+January 15
+SELECT 
+	`istatId`,
+    `name`,
+    (sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5 as avg,
+    sum(t20) as d20,
+    sum(t20) - ((sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5) as delta,
+    (sum(t20) - ((sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5)) / ((sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5) as perc
+FROM `it-municipalities-deaths-march20-raw`
+WHERE
+    t20 <> 9999 AND
+	month = 1 AND
+    day < 16
+GROUP BY `istatId`, `name`
+HAVING perc > 0.5 AND delta > 4
+ORDER BY perc DESC
+
+January 31
+SELECT 
+	`istatId`,
+    `name`, 
+    (sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5 as avg,
+    sum(t20) as d20,
+    sum(t20) - ((sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5) as delta,
+    (sum(t20) - ((sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5)) / ((sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5) as perc
+FROM `it-municipalities-deaths-march20-raw`
+WHERE
+    t20 <> 9999 AND
+	(month = 1)
+GROUP BY `istatId`, `name`
+HAVING perc > 0.5 AND delta > 5
+ORDER BY perc DESC
+
+February 15
+SELECT 
+	`istatId`,
+    `name`, 
+    (sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5 as avg,
+    sum(t20) as d20,
+    sum(t20) - ((sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5) as delta,
+    (sum(t20) - ((sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5)) / ((sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5) as perc
+FROM `it-municipalities-deaths-march20-raw`
+WHERE
+    t20 <> 9999 AND
+	(month = 1 OR (month = 2 AND day < 16 ))
+GROUP BY `istatId`, `name`
+HAVING perc > 0.5 AND delta > 5
+ORDER BY perc DESC
+
+February 29
+SELECT 
+	`istatId`,
+    `name`, 
+    (sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5 as avg,
+    sum(t20) as d20,
+    sum(t20) - ((sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5) as delta,
+    (sum(t20) - ((sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5)) / ((sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5) as perc
+FROM `it-municipalities-deaths-march20-raw`
+WHERE
+    t20 <> 9999 AND
+	month in (1,2)
+GROUP BY `istatId`, `name`
+HAVING perc > 0.5 AND delta > 5
+ORDER BY perc DESC
+
+
+SELECT DISTINCT b.istatId, b.name , population
+FROM `badguys` b
+INNER JOIN `it-municipalities` m on b.istatId = m.istatId
+ORDER BY population DESC
+
+*** Really bad guys ***
+SELECT 
+	`istatId`,
+    `name`, 
+    (sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5 as avg,
+    sum(t20) as d20,
+    sum(t20) - ((sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5) as delta,
+    (sum(t20) - ((sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5)) / ((sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5) as perc
+FROM `it-municipalities-deaths-march20-raw`
+WHERE
+    t20 <> 9999 
+GROUP BY `istatId`, `name`
+HAVING perc > 1 AND delta > 5
+ORDER BY avg DESC
+
+Query to select data for Bergamo province by municipality
+SELECT 
+	d.`istatId`,
+    d.`name`,
+    m.population,
+    (sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5 as avg,
+    sum(t20) as d20
+FROM `it-municipalities-deaths-march20-raw` d
+INNER JOIN `it-municipalities` m ON d.istatId = m.istatId
+WHERE
+    t20 <> 9999 AND
+    nameSubReg = 'Bergamo'
+GROUP BY d.`istatId`, d.`name`, m.population
+
+Bergamo Province by day
+SELECT 
+	month,
+    day,
+    (sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5 as avg,
+    sum(t20) as d20
+FROM `it-municipalities-deaths-march20-raw` d
+INNER JOIN `it-municipalities` m ON d.istatId = m.istatId
+WHERE
+    d.t20 <> 9999 AND
+    m.nameSubReg = 'Bergamo'
+GROUP BY month, day
+
+SELECT 
+	month,
+    day,
+    (sum(t15)+ sum(t16) + sum(t17) + sum(t18) + sum(t19)) / 5 as avg,
+    sum(t20) as d20
+FROM `it-municipalities-deaths-march20-raw` 
+INNER JOIN `it-municipalities` ON `it-municipalities-deaths-march20-raw`.`istatId` = `it-municipalities`.`istatId`
+WHERE
+    t20 <> 9999 AND
+    nameSubReg = 'Bergamo'
+GROUP BY month, day
