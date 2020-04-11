@@ -1,8 +1,8 @@
 const fs = require('fs');
 const csv=require('csvtojson');
 
-//const csvFilePath    = './sources/comune_giorno.csv';
-const csvFilePath    = './test/comune_giorno.csv';
+const csvFilePath    = './sources/comune_giorno.csv';
+//const csvFilePath    = './test/comune_giorno.csv';
 //const csvFilePath    = './opendata/it_municipalities_deaths_march_2020.csv';
 const jsonOutputFile = './opendata/it-total-deaths.json';
 
