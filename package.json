@@ -4,7 +4,8 @@
   "description": "Open Data on Covid19",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ingestion": "node processing/ingestion"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,10 @@
   },
   "homepage": "https://github.com/ioconto/covid19#readme",
   "dependencies": {
-    "csvtojson": "^2.0.10"
+    "csvtojson": "^2.0.10",
+    "dotenv": "^8.2.0",
+    "kafka-logger": "^7.1.0",
+    "mysql": "^2.18.1",
+    "winston": "^3.2.1"
   }
 }
