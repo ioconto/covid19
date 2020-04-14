@@ -1,11 +1,10 @@
 const fs = require('fs');
 const csv=require('csvtojson');
 
-//const csvFilePath='./opendata/it-bergamo-deaths-03.csv';
 //const csvFilePath='./test/test-final.csv';
 //const csvFilePath    = './test/it_municipalities_deaths_by_month.csv';
-const csvFilePath    = './opendata/it_municipalities_deaths_march_2020.csv';
-const jsonOutputFile = './opendata/it-total-deaths.json';
+const csvFilePath    = './opendata/200328/it-total-deaths.csv';
+const jsonOutputFile = './opendata/200328/it-total-deaths.json';
 
 csv()
 .fromFile(csvFilePath)
@@ -72,7 +71,7 @@ csv()
       if (ratio > 0.25) color = "Yellow";
       if (ratio > 1) color = "Red";
       if (deaths/population > 0.01) {
-        console.log(loc.name, population, deaths);
+        //console.log(loc.name, population, deaths);
         color = "Purple"
       }
       // if (loc.istatId == '16144') {
