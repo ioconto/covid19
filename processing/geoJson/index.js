@@ -21,7 +21,7 @@ csv()
       let officialCovid = null;
       const population = parseInt(loc.population);
 
-      if (loc.ecoBG) {
+      if (parseInt(loc.ecoBG)) {
         avgDeaths = parseInt(loc.mar19);
         deaths = parseInt(loc.mar20);
         deltaDeaths = deaths - avgDeaths;
@@ -36,7 +36,7 @@ csv()
         Pecentuale decessi su popolazione: ${mortality}
 
         Dati rilevati da Eco di Bergamo`;
-      } else if (loc.bsToday) {
+      } else if (parseInt(loc.bsToday)) {
         avgDeaths = parseInt(loc.mar19);
         deaths = parseInt(loc.mar20);
         deltaDeaths = deaths - avgDeaths;
@@ -52,14 +52,14 @@ csv()
          
         Dati rilevati da Eco di Brescia Today`;
       } else {
-        description = "Dati Istat rilevati nel periodo 1-21 marzo 2020, comparati con la media dei cinque anni precedenti";
+        //description = "Dati Istat rilevati nel periodo 1-21 marzo 2020, comparati con la media dei cinque anni precedenti";
         avgDeaths = (parseInt(loc.d15) + parseInt(loc.d16) + parseInt(loc.d17) + parseInt(loc.d18) + parseInt(loc.d19)) / 5;
         deaths = parseInt(loc.d20);
         deltaDeaths = deaths - avgDeaths;
         ratio = deltaDeaths / avgDeaths;
         mortality = (deaths/population * 100).toString().substr(0,3) + "%";
-        description = `Decessi 1-21 Marzo 2020: ${deaths}
-        Decessi 1-21 Marzo anni precedenti: ${avgDeaths}
+        description = `Decessi 1-28 Marzo 2020: ${deaths}
+        Decessi 1-28 Marzo anni precedenti: ${avgDeaths}
         Differenza: ${deltaDeaths}
         Popolazione: ${population}
         Pecentuale decessi su popolazione: ${mortality}
