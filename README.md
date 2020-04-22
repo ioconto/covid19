@@ -7,7 +7,7 @@ IoConto vuole fornire, a tutti gli enti e anche a singoli individui, un sistema 
 Uniti ce la faremo.
 
 ## Dati Disponibili
-I dati elaborati sono disponibili in https://github.com/ioconto/covid19/tree/master/opendata
+I dati elaborati sono disponibili in https://github.com/ioconto/covid19/tree/master/opendata/current
 
 | Filename | Descrizione |
 |----------|-------------|
